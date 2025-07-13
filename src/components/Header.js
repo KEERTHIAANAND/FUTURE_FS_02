@@ -36,7 +36,7 @@ export default function Header({ cartItemCount = 0 }) {
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-3">
               <div className="flex flex-col">
-                <span className="text-3xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent tracking-wider" style={{ fontFamily: 'var(--font-orbitron)' }}>
+              <span className="text-3xl font-black bg-gradient-to-r from-black via-gray-600 to-gray-400 bg-clip-text text-transparent tracking-wider" style={{ fontFamily: 'var(--font-orbitron)' }}>
                   NXTLook
                 </span>
                 <span className="text-xs text-gray-500 -mt-1 tracking-widest uppercase">Premium Style</span>
@@ -59,18 +59,23 @@ export default function Header({ cartItemCount = 0 }) {
               </Link>
             </nav>
 
-            {/* Right Side Actions */}
+            {/* Right Side Actions with Search Box on the right */}
             <div className="flex items-center space-x-6">
-              {/* Search Icon */}
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                className="p-2 text-gray-700 hover:text-purple-600 transition-colors"
-                title="Search"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
+              {/* Compact Desktop Search Box - with icon inside */}
+              <div className="hidden md:flex items-center mx-2">
+                <div className="relative w-40">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="w-full px-2 py-1 pl-8 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm bg-white text-gray-900 placeholder-gray-400"
+                  />
+                  <div className="absolute left-2 top-1.5 text-gray-400">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
 
               {/* Cart */}
               <Link href="/cart" className="relative p-2 text-gray-700 hover:text-purple-600 transition-colors">
