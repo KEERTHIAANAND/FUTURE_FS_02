@@ -20,7 +20,7 @@ export default function ProductCard({ product, onAddToCart }) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       {/* Product Image */}
-      <div className="relative h-64 bg-gray-100">
+      <div className="relative h-110 bg-gray-100">
         <Image
           src={product.image}
           alt={product.name}
@@ -68,8 +68,8 @@ export default function ProductCard({ product, onAddToCart }) {
                 onClick={() => setSelectedSize(size)}
                 className={`px-3 py-1 text-sm border rounded-md transition-colors ${
                   selectedSize === size
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-blue-600'
+                    ? 'bg-[rgb(169,169,169)] text-white border-[rgb(169,169,169)]'
+                    : 'bg-white text-gray-700 border-gray-300 hover:border-gray-500'
                 }`}
               >
                 {size}
@@ -88,8 +88,8 @@ export default function ProductCard({ product, onAddToCart }) {
                 onClick={() => setSelectedColor(color)}
                 className={`px-3 py-1 text-sm border rounded-md transition-colors ${
                   selectedColor === color
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-blue-600'
+                    ? 'bg-[rgb(169,169,169)] text-white border-[rgb(169,169,169)]'
+                    : 'bg-white text-gray-700 border-gray-300 hover:border-gray-500'
                 }`}
               >
                 {color}
@@ -121,7 +121,7 @@ export default function ProductCard({ product, onAddToCart }) {
         {/* Add to Cart Button */}
         <button
           onClick={handleAddToCart}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium"
+          className="w-full bg-[rgb(105,105,105)] text-white py-2 px-4 rounded-md hover:bg-gray-900 transition-colors duration-200 font-medium"
         >
           Add to Cart
         </button>

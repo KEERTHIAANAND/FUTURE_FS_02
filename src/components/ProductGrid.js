@@ -6,16 +6,17 @@ import { products, categories } from '../data/products';
 
 export default function ProductGrid() {
   const [filteredProducts, setFilteredProducts] = useState(products);
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('name');
 
   useEffect(() => {
     let filtered = products;
 
-    // Filter by category
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(product => product.category === selectedCategory);
+    // Filter by subcategory
+    if (selectedSubCategory) {
+      filtered = filtered.filter(product => product.category === selectedSubCategory);
     }
 
     // Filter by search query
@@ -42,7 +43,20 @@ export default function ProductGrid() {
     });
 
     setFilteredProducts(filtered);
-  }, [selectedCategory, searchQuery, sortBy]);
+  }, [selectedSubCategory, searchQuery, sortBy]);
+
+  // Helper to close dropdown when clicking outside
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (!e.target.closest('.category-dropdown')) {
+        setSelectedMainCategory(null);
+      }
+    };
+    if (selectedMainCategory) {
+      document.addEventListener('mousedown', handleClick);
+    }
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [selectedMainCategory]);
 
   const handleAddToCart = (product) => {
     // Get existing cart from localStorage
@@ -74,38 +88,58 @@ export default function ProductGrid() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Filters and Search */}
       <div className="mb-8">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
+        <div className="flex w-full items-center gap-4">
           {/* Search */}
-          <div className="flex-1 max-w-md">
+          <div className="max-w-xs">
             <input
               type="text"
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full max-w-[400px] px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  selectedCategory === category.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
+          {/* Category Dropdowns Centered */}
+          <div className="flex-1 flex justify-center">
+            <div className="flex gap-4">
+              {categories.map((cat) => {
+                return (
+                  <div key={cat.id} className="relative category-dropdown">
+                    <button
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors bg-gray-200 text-gray-700 hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:text-white`}
+                      onClick={() => setSelectedMainCategory(selectedMainCategory === cat.id ? null : cat.id)}
+                      type="button"
+                    >
+                      {cat.name}
+                    </button>
+                    {/* Dropdown */}
+                    {selectedMainCategory === cat.id && (
+                      <div className="absolute left-0 mt-2 w-44 bg-white rounded-md shadow-lg border border-gray-100 z-20">
+                        {cat.subcategories.map(sub => (
+                          <button
+                            key={sub.id}
+                            onClick={() => {
+                              setSelectedSubCategory(sub.id);
+                              setSelectedMainCategory(null);
+                            }}
+                            className={`block w-full text-left px-4 py-2 text-sm rounded-md transition-colors ${
+                              selectedSubCategory === sub.id
+                                ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100 text-gray-700'
+                            }`}
+                          >
+                            {sub.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-
-          {/* Sort */}
-          <div className="flex items-center space-x-2">
-            <label className="text-sm font-medium text-gray-700">Sort by:</label>
+          {/* Sort By */}
+          <div>
+            <label className="text-sm font-medium text-gray-700 mr-2">Sort by:</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
