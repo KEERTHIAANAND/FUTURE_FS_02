@@ -18,7 +18,7 @@ export default function ProductCard({ product, onAddToCart }) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-2xl hover:scale-105">
       {/* Product Image */}
       <div className="relative h-110 bg-gray-100">
         <Image
