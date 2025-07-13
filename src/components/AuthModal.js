@@ -264,7 +264,7 @@ export default function AuthModal({ isOpen, onClose }) {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gray-800 hover:bg-gray-900 text-white py-3 px-4 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
@@ -286,7 +286,7 @@ export default function AuthModal({ isOpen, onClose }) {
               {isLogin ? "Don't have an account?" : "Already have an account?"}
               <button
                 onClick={toggleMode}
-                className="ml-2 text-purple-600 hover:text-purple-700 font-semibold transition-colors"
+                className="ml-2 text-gray-600 hover:text-gray-900 font-semibold transition-colors"
               >
                 {isLogin ? 'Sign Up' : 'Sign In'}
               </button>
