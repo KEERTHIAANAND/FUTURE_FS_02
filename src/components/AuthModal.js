@@ -126,8 +126,17 @@ export default function AuthModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Debug: Fullscreen solid red background */}
+      <div
+        className="fixed inset-0 w-full h-full"
+        style={{
+          background: 'url("/login_banner.jpg") center center / cover no-repeat',
+          filter: 'brightness(0.4)'
+        }}
+      />
+      {/* Modal content */}
+      <div className="relative w-full max-w-md mx-4 z-20 bg-gray-200 rounded-xl shadow-2xl">
         <div className="p-8">
           {/* Header */}
           <div className="text-center mb-8">
