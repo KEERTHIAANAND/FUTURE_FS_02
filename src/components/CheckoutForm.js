@@ -59,8 +59,8 @@ export default function CheckoutForm({ onSubmit, isSubmitting }) {
     }
 
     // ZIP code validation
-    if (formData.zipCode && !/^\d{5}(-\d{4})?$/.test(formData.zipCode)) {
-      newErrors.zipCode = 'Please enter a valid ZIP code';
+    if (formData.zipCode && !/^[A-Za-z0-9\s-]{3,12}$/.test(formData.zipCode)) {
+      newErrors.zipCode = 'Please enter a valid postal/ZIP code';
     }
 
     // Payment validation
