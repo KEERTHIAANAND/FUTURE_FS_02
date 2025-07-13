@@ -10,13 +10,15 @@ export default function ProductGrid() {
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('name');
+  const defaultSubCategory = 't-shirts';
 
   useEffect(() => {
     let filtered = products;
 
     // Filter by subcategory
-    if (selectedSubCategory) {
-      filtered = filtered.filter(product => product.category === selectedSubCategory);
+    const filterCategory = selectedSubCategory || defaultSubCategory;
+    if (filterCategory) {
+      filtered = filtered.filter(product => product.category === filterCategory);
     }
 
     // Filter by search query
