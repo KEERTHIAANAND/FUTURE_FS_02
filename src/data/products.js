@@ -478,6 +478,54 @@ export const products = [
     colors: ["Black", "Blue"],
     rating: 4.8,
     reviews: 119
+  },
+  {
+    id: 41,
+    name: "American Tourister Backpack",
+    price: 59.99,
+    category: "bags",
+    image: "/products/bags/b1.png",
+    description: "Spacious and durable backpack for daily use.",
+    sizes: ["One Size"],
+    colors: ["Black", "Blue"],
+    rating: 4.6,
+    reviews: 88
+  },
+  {
+    id: 42,
+    name: "Wildcraft Laptop Bag",
+    price: 79.99,
+    category: "bags",
+    image: "/products/bags/b2.png",
+    description: "Laptop bag with multiple compartments and padded support.",
+    sizes: ["One Size"],
+    colors: ["Gray", "Navy"],
+    rating: 4.7,
+    reviews: 102
+  },
+  {
+    id: 43,
+    name: "Skybags Bag",
+    price: 49.99,
+    category: "bags",
+    image: "/products/bags/b3.png",
+    description: "Lightweights bag perfect for travel and gym.",
+    sizes: ["One Size"],
+    colors: ["Red", "Black"],
+    rating: 4.5,
+    reviews: 67
+  },
+  {
+    id: 44,
+    name: "F Gear Crossbody Sling Bag",
+    price: 29.99,
+    category: "bags",
+    image: "/products/bags/b4.png",
+    description: "Compact sling bag for essentials and easy carrying.",
+    sizes: ["One Size"],
+    colors: ["Brown", "Black"],
+    rating: 4.4,
+    reviews: 54
   }
 ];
 
