@@ -430,6 +430,54 @@ export const products = [
     colors: ["White", "Black"],
     rating: 4.8,
     reviews: 210
+  },
+  {
+    id: 37,
+    name: "Tommy Hilfiger Leather Belt",
+    price: 49.99,
+    category: "belts-wallets",
+    image: "/products/belt&wallet/b1.png",
+    description: "Premium leather belt with classic buckle design.",
+    sizes: ["M", "L", "XL"],
+    colors: ["Brown", "Black"],
+    rating: 4.6,
+    reviews: 85
+  },
+  {
+    id: 38,
+    name: "Levi's Reversible Belt",
+    price: 39.99,
+    category: "belts-wallets",
+    image: "/products/belt&wallet/b2.png",
+    description: "Reversible casual belt for versatile styling.",
+    sizes: ["M", "L", "XL"],
+    colors: ["Black", "Tan"],
+    rating: 4.5,
+    reviews: 62
+  },
+  {
+    id: 39,
+    name: "Wildhorn Genuine Leather Wallet",
+    price: 29.99,
+    category: "belts-wallets",
+    image: "/products/belt&wallet/w1.png",
+    description: "Compact wallet with multiple card slots and coin pocket.",
+    sizes: ["One Size"],
+    colors: ["Brown", "Black"],
+    rating: 4.7,
+    reviews: 104
+  },
+  {
+    id: 40,
+    name: "Urban Forest RFID Wallet",
+    price: 34.99,
+    category: "belts-wallets",
+    image: "/products/belt&wallet/w2.png",
+    description: "RFID protected wallet for secure and stylish storage.",
+    sizes: ["One Size"],
+    colors: ["Black", "Blue"],
+    rating: 4.8,
+    reviews: 119
   }
 ];
 
