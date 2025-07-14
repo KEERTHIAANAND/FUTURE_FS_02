@@ -382,6 +382,54 @@ export const products = [
     colors: ["Yellow", "Black", "Blue"],
     rating: 4.5,
     reviews: 28
+  },
+  {
+    id: 33,
+    name: "Fossil Gen 6 Smartwatch",
+    price: 199.99,
+    category: "watches",
+    image: "/products/watches/w1.png",
+    description: "Advanced health and fitness tracking with stylish design.",
+    sizes: ["One Size"],
+    colors: ["Black", "Silver"],
+    rating: 4.7,
+    reviews: 120
+  },
+  {
+    id: 34,
+    name: "Casio G-Shock Classic",
+    price: 89.99,
+    category: "watches",
+    image: "/products/watches/w2.png",
+    description: "Shock resistant, water resistant, and built for adventure.",
+    sizes: ["One Size"],
+    colors: ["Black", "Red"],
+    rating: 4.6,
+    reviews: 98
+  },
+  {
+    id: 35,
+    name: "Titan Neo Analog Watch",
+    price: 59.99,
+    category: "watches",
+    image: "/products/watches/w3.png",
+    description: "Elegant analog watch for formal and casual occasions.",
+    sizes: ["One Size"],
+    colors: ["Brown", "Blue"],
+    rating: 4.5,
+    reviews: 76
+  },
+  {
+    id: 36,
+    name: "Apple Watch SE",
+    price: 279.99,
+    category: "watches",
+    image: "/products/watches/w4.png",
+    description: "Smartwatch with fitness tracking and notifications.",
+    sizes: ["One Size"],
+    colors: ["White", "Black"],
+    rating: 4.8,
+    reviews: 210
   }
 ];
 
