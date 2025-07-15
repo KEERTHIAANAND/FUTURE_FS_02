@@ -574,6 +574,54 @@ export const products = [
     colors: ["Olive", "Black"],
     rating: 4.7,
     reviews: 27
+  },
+  {
+    id: 49,
+    name: "Bata Classic Formal Shoes",
+    price: 89.99,
+    category: "formal-shoes",
+    image: "/products/formal-shoes/f1.png", // Placeholder image
+    description: "Elegant black formal shoes for office and events.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Black", "Brown"],
+    rating: 4.5,
+    reviews: 40
+  },
+  {
+    id: 50,
+    name: "Hush Puppies Leather Formals",
+    price: 119.99,
+    category: "formal-shoes",
+    image: "/products/formal-shoes/f2.png", // Placeholder image
+    description: "Premium leather shoes with cushioned insole.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Tan", "Black"],
+    rating: 4.7,
+    reviews: 28
+  },
+  {
+    id: 51,
+    name: "Red Tape Derby Shoes",
+    price: 99.99,
+    category: "formal-shoes",
+    image: "/products/formal-shoes/f3.png", // Placeholder image
+    description: "Classic derby shoes for a sharp formal look.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Brown", "Black"],
+    rating: 4.4,
+    reviews: 22
+  },
+  {
+    id: 52,
+    name: "Clarks Oxford Shoes",
+    price: 139.99,
+    category: "formal-shoes",
+    image: "/products/formal-shoes/f4.png", // Placeholder image
+    description: "Timeless oxford shoes with a modern touch.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Black", "Burgundy"],
+    rating: 4.8,
+    reviews: 35
   }
 ];
 
