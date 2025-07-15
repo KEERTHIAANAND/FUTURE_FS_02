@@ -622,6 +622,54 @@ export const products = [
     colors: ["Black", "Burgundy"],
     rating: 4.8,
     reviews: 35
+  },
+  {
+    id: 53,
+    name: "Skechers Go Walk Casual Shoes",
+    price: 79.99,
+    category: "casual-shoes",
+    image: "/products/casual-shoes/c1.png", // Placeholder image
+    description: "Ultra-lightweight slip-on shoes for all-day comfort.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Gray", "Navy", "Black"],
+    rating: 4.6,
+    reviews: 38
+  },
+  {
+    id: 54,
+    name: "Nike Flex Casual Sneakers",
+    price: 89.99,
+    category: "casual-shoes",
+    image: "/products/casual-shoes/c2.png", // Placeholder image
+    description: "Flexible and stylish sneakers for everyday wear.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["White", "Black", "Blue"],
+    rating: 4.7,
+    reviews: 44
+  },
+  {
+    id: 55,
+    name: "Puma Street Casual Shoes",
+    price: 69.99,
+    category: "casual-shoes",
+    image: "/products/casual-shoes/c3.png", // Placeholder image
+    description: "Trendy street-style shoes with cushioned footbed.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Black", "Red", "White"],
+    rating: 4.5,
+    reviews: 29
+  },
+  {
+    id: 56,
+    name: "Red Chief Urban Casuals",
+    price: 74.99,
+    category: "casual-shoes",
+    image: "/products/casual-shoes/c4.png", // Placeholder image
+    description: "Urban casual shoes with a rugged look and feel.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Brown", "Olive", "Black"],
+    rating: 4.4,
+    reviews: 24
   }
 ];
 
