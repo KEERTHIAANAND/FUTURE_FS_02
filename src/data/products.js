@@ -526,6 +526,54 @@ export const products = [
     colors: ["Brown", "Black"],
     rating: 4.4,
     reviews: 54
+  },
+  {
+    id: 45,
+    name: "Adidas Comfort Sandals",
+    price: 49.99,
+    category: "sandals",
+    image: "/products/sandals/s1.png", // Placeholder image
+    description: "Lightweight, comfortable sandals for everyday wear.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Black", "Blue", "Gray"],
+    rating: 4.4,
+    reviews: 32
+  },
+  {
+    id: 46,
+    name: "Nike Ultra Grip Sandals",
+    price: 59.99,
+    category: "sandals",
+    image: "/products/sandals/s2.png", // Placeholder image
+    description: "Durable sandals with extra grip for outdoor activities.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Black", "Red", "Green"],
+    rating: 4.6,
+    reviews: 21
+  },
+  {
+    id: 47,
+    name: "Puma Classic Sandals",
+    price: 39.99,
+    category: "sandals",
+    image: "/products/sandals/s3.png", // Placeholder image
+    description: "Classic design sandals with cushioned sole.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Brown", "Black"],
+    rating: 4.3,
+    reviews: 18
+  },
+  {
+    id: 48,
+    name: "Woodland Trekking Sandals",
+    price: 69.99,
+    category: "sandals",
+    image: "/products/sandals/s4.png", // Placeholder image
+    description: "Rugged sandals perfect for trekking and adventure.",
+    sizes: ["7", "8", "9", "10", "11"],
+    colors: ["Olive", "Black"],
+    rating: 4.7,
+    reviews: 27
   }
 ];
 
