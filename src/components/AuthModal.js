@@ -126,7 +126,7 @@ export default function AuthModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
       {/* Debug: Fullscreen solid red background */}
       <div
         className="fixed inset-0 w-full h-full"
@@ -136,22 +136,21 @@ export default function AuthModal({ isOpen, onClose }) {
         }}
       />
       {/* Modal content */}
-      <div className="relative w-full max-w-md mx-4 z-20 bg-gray-200 rounded-xl shadow-2xl">
-        <div className="p-8">
+      <div className="relative w-full max-w-xs sm:max-w-md mx-2 sm:mx-4 z-20 bg-gray-200 rounded-xl shadow-2xl">
+        <div className="p-4 sm:p-8">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               {isLogin ? 'Welcome Back' : 'Create Account'}
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-xs sm:text-base">
               {isLogin ? 'Sign in to your account' : 'Join NXTLook today'}
             </p>
           </div>
-
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {!isLogin && (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     First Name

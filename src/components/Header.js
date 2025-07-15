@@ -31,43 +31,43 @@ export default function Header({ cartItemCount = 0 }) {
   return (
     <>
       <header className="bg-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
               <div className="flex flex-col">
-              <span className="text-3xl font-black bg-gradient-to-r from-black via-gray-600 to-gray-400 bg-clip-text text-transparent tracking-wider" style={{ fontFamily: 'var(--font-orbitron)' }}>
+                <span className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-black via-gray-600 to-gray-400 bg-clip-text text-transparent tracking-wider" style={{ fontFamily: 'var(--font-orbitron)' }}>
                   NXTLook
                 </span>
-                <span className="text-xs text-gray-500 -mt-1 tracking-widest uppercase">Premium Style</span>
+                <span className="text-[10px] sm:text-xs text-gray-500 -mt-1 tracking-widest uppercase">Premium Style</span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8 items-center">
-              <Link href="/" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">
+            <nav className="hidden md:flex space-x-4 lg:space-x-8 items-center">
+              <Link href="/" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base">
                 Home
               </Link>
-              <Link href="/products" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">
+              <Link href="/products" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base">
                 Shop
               </Link>
-              <Link href="/offers" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">
+              <Link href="/offers" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base">
                 Offers
               </Link>
-              <Link href="/orders" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">
+              <Link href="/orders" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base">
                 Orders
               </Link>
             </nav>
 
             {/* Right Side Actions with Search Box on the right */}
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Compact Desktop Search Box - with icon inside */}
-              <div className="hidden md:flex items-center mx-2">
-                <div className="relative w-40">
+              <div className="hidden md:flex items-center mx-1 sm:mx-2">
+                <div className="relative w-28 sm:w-40">
                   <input
                     type="text"
                     placeholder="Search..."
-                    className="w-full px-2 py-1 pl-8 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm bg-white text-gray-900 placeholder-gray-400"
+                    className="w-full px-2 py-1 pl-8 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-xs sm:text-sm bg-white text-gray-900 placeholder-gray-400"
                   />
                   <div className="absolute left-2 top-1.5 text-gray-400">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,12 +78,12 @@ export default function Header({ cartItemCount = 0 }) {
               </div>
 
               {/* Cart */}
-              <Link href="/cart" className="relative p-2 text-gray-700 hover:text-purple-600 transition-colors">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <Link href="/cart" className="relative p-1 sm:p-2 text-gray-700 hover:text-purple-600 transition-colors">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 {cartItemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] sm:text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center font-bold">
                     {cartItemCount}
                   </span>
                 )}
@@ -92,21 +92,21 @@ export default function Header({ cartItemCount = 0 }) {
               {/* Account */}
               {user ? (
                 <div className="relative group">
-                  <button className="p-2 text-gray-700 hover:text-purple-600 transition-colors">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <button className="p-1 sm:p-2 text-gray-700 hover:text-purple-600 transition-colors">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                   </button>
                   {/* Dropdown */}
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="absolute right-0 mt-2 w-44 sm:w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 text-xs sm:text-sm">
                     <div className="py-2">
-                      <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-200">
+                      <div className="px-4 py-2 text-gray-700 border-b border-gray-200">
                         <p className="font-semibold">{user.firstName} {user.lastName}</p>
                         <p className="text-gray-500">{user.email}</p>
                       </div>
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                        className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
                       >
                         Sign Out
                       </button>
@@ -116,10 +116,10 @@ export default function Header({ cartItemCount = 0 }) {
               ) : (
                 <button 
                   onClick={() => setIsAuthModalOpen(true)}
-                  className="p-2 text-gray-700 hover:text-purple-600 transition-colors"
+                  className="p-1 sm:p-2 text-gray-700 hover:text-purple-600 transition-colors"
                   title="Sign In"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </button>
@@ -139,8 +139,8 @@ export default function Header({ cartItemCount = 0 }) {
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200">
-              <nav className="flex flex-col space-y-4">
+            <div className="md:hidden py-4 border-t border-gray-200 bg-white absolute left-0 right-0 w-full z-50 shadow-lg">
+              <nav className="flex flex-col space-y-3 text-base px-4">
                 <Link href="/" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">
                   Home
                 </Link>

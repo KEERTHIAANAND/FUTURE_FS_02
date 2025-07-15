@@ -87,12 +87,12 @@ export default function ProductGrid() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-6 sm:py-8">
       {/* Filters and Search */}
-      <div className="mb-8">
-        <div className="flex w-full items-center gap-4">
+      <div className="mb-6 sm:mb-8">
+        <div className="flex flex-col sm:flex-row w-full items-stretch sm:items-center gap-3 sm:gap-4">
           {/* Search */}
-          <div className="max-w-xs">
+          <div className="max-w-xs w-full">
             <input
               type="text"
               placeholder="Search products..."
@@ -103,7 +103,7 @@ export default function ProductGrid() {
           </div>
           {/* Category Dropdowns Centered */}
           <div className="flex-1 flex justify-center">
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-2 sm:gap-4 justify-center">
               {categories.map((cat) => {
                 return (
                   <div key={cat.id} className="relative category-dropdown">
@@ -165,7 +165,7 @@ export default function ProductGrid() {
 
       {/* Product Grid */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredProducts.map((product) => (
             <ProductCard
               key={product.id}
