@@ -1,5 +1,8 @@
+"use client";
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import ProductGrid from '../components/ProductGrid';
 import { products, categories } from '../data/products';
@@ -7,26 +10,68 @@ import { products, categories } from '../data/products';
 export default function Home() {
   const featuredProducts = products.slice(0, 4);
 
+  // Banner carousel logic
+  const bannerImages = [
+    '/Banner/b4.png',
+    '/Banner/b1.png',
+    '/Banner/b2.png',
+    '/Banner/b3.png',
+  ];
+  const [currentBanner, setCurrentBanner] = useState(0);
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    timeoutRef.current = setTimeout(() => {
+      setCurrentBanner((prev) => (prev + 1) % bannerImages.length);
+    }, 3500);
+    return () => clearTimeout(timeoutRef.current);
+  }, [currentBanner, bannerImages.length]);
+
+  const goToBanner = (idx) => setCurrentBanner(idx);
+  const prevBanner = () => setCurrentBanner((prev) => (prev - 1 + bannerImages.length) % bannerImages.length);
+  const nextBanner = () => setCurrentBanner((prev) => (prev + 1) % bannerImages.length);
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-orbitron)' }}>
-              NXTLook
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100">
-              Premium Style for Modern Men
-            </p>
-            <Link
-              href="/products"
-              className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-            >
-              Shop Now
-            </Link>
+      {/* Banner Carousel */}
+      <section className="relative w-full mx-auto mt-4 overflow-hidden" style={{maxWidth: '100vw', height: '100vh'}}>
+        <div className="relative w-screen h-screen">
+          <div
+            className="absolute inset-0 flex transition-transform duration-400 ease-in-out"
+            style={{
+              width: `calc(${bannerImages.length} * 100vw)`,
+              height: '100vh',
+              transform: `translateX(-${currentBanner * 100}vw)`,
+            }}
+          >
+            {bannerImages.map((img, idx) => (
+              <div key={idx} className="flex-shrink-0 flex items-center justify-center" style={{width: '100vw', height: '100vh'}}>
+                <img
+                  src={img}
+                  alt={`Offer banner ${idx + 1}`}
+                  style={{display: 'block', width: '100vw', height: '100vh', objectFit: 'contain'}}
+                />
+              </div>
+            ))}
+          </div>
+          {/* Manual Controls */}
+          <button onClick={prevBanner} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md z-10">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          </button>
+          <button onClick={nextBanner} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md z-10">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          </button>
+          {/* Dots */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+            {bannerImages.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => goToBanner(idx)}
+                className={`w-3 h-3 rounded-full border-2 ${currentBanner === idx ? 'bg-white border-gray-800' : 'bg-gray-300 border-white'} transition-all`}
+                aria-label={`Go to banner ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
