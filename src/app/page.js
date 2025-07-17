@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import ProductGrid from '../components/ProductGrid';
 import { products, categories } from '../data/products';
+import Head from 'next/head';
 
 export default function Home() {
   const featuredProducts = products.slice(0, 4);
@@ -32,10 +33,13 @@ export default function Home() {
   const nextBanner = () => setCurrentBanner((prev) => (prev + 1) % bannerImages.length);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white font-sans">
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+      </Head>
       <Header />
       {/* Banner Carousel */}
-      <section className="relative w-full mx-auto mt-4 overflow-hidden" style={{maxWidth: '100vw', height: '100vh'}}>
+      <section className="relative w-full mx-auto overflow-hidden" style={{maxWidth: '100vw', height: '100vh'}}>
         <div className="relative w-screen h-screen">
           <div
             className="absolute inset-0 flex transition-transform duration-400 ease-in-out"
@@ -76,40 +80,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section className="py-16">
+      {/* Trusted Brands Marquee Section */}
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Shop by Category
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-6" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
+            Trusted Brands
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-            {categories.slice(1).map((category) => (
-              <Link
-                key={category.id}
-                href={`/products?category=${category.id}`}
-                className="group"
-              >
-                <div className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-200 transition-colors">
-                    <span className="text-blue-600 font-bold text-lg">
-                      {category.name.charAt(0)}
-                    </span>
-                  </div>
-                  <h3 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
-                    {category.name}
-                  </h3>
-                </div>
-              </Link>
-            ))}
+          <div className="overflow-hidden whitespace-nowrap relative">
+            <div
+              className="inline-block animate-marquee"
+              style={{ animation: 'marquee 15s linear infinite' }}
+            >
+              {[
+                { src: '/brands/nike.svg', alt: 'Nike' },
+                { src: '/brands/adidas.svg', alt: 'Adidas' },
+                { src: '/brands/puma.svg', alt: 'Puma' },
+                { src: '/brands/levi.svg', alt: 'Levi’s' },
+                { src: '/brands/calvin-klein.svg', alt: 'Calvin Klein' },
+                { src: '/brands/allen-solly.svg', alt: 'Allen Solly' },
+                { src: '/brands/zara.svg', alt: 'Zara' },
+                { src: '/brands/h&m.svg', alt: 'H&M' },
+                { src: '/brands/bata.svg', alt: 'Bata' },
+                { src: '/brands/apple.svg', alt: 'Apple' },
+                { src: '/brands/Tommy_Hilfiger.svg', alt: 'Tommy Hilfiger', style: { height: 32 } },
+                { src: '/brands/fossil.svg', alt: 'Fossil' },
+                { src: '/brands/fastrack.svg', alt: 'Fastrack' },
+                { src: '/brands/under-armour.svg', alt: 'Under Armour' },
+              ].map((brand, idx) => (
+                <span
+                  key={idx}
+                  className="inline-block mx-8 align-middle"
+                >
+                  <img
+                    src={brand.src}
+                    alt={brand.alt}
+                    style={{ height: brand.style?.height || 48, width: 'auto', display: 'inline-block', filter: 'grayscale(60%)', opacity: 0.85 }}
+                  />
+                </span>
+              ))}
+            </div>
           </div>
         </div>
+        <style jsx>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+        `}</style>
       </section>
 
       {/* Featured Products */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
               Featured Products
             </h2>
             <Link
@@ -169,7 +193,7 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
             Why Choose Us
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
