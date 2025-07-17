@@ -20,14 +20,15 @@ export default function ProductCard({ product, onAddToCart }) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-2xl hover:scale-105">
       {/* Product Image */}
-      <div className="relative h-56 sm:h-72 bg-gray-100">
+      <div className="relative max-w-xs w-[90%] mx-auto mt-5 mb-2 aspect-[4/5] bg-[var(--background)] rounded-lg overflow-hidden">
         <Image
           src={product.image}
           alt={product.name}
           fill
           className="object-cover"
         />
-        <div className="absolute top-2 right-2 bg-white px-2 py-1 rounded-full text-xs sm:text-sm font-semibold text-gray-800">
+        <div className="absolute top-2 right-2 px-2 py-1 rounded-full text-xs sm:text-sm font-semibold"
+          style={{ background: 'var(--accent)', color: 'var(--foreground)' }}>
           ${product.price}
         </div>
       </div>
