@@ -45,16 +45,16 @@ export default function Header({ cartItemCount = 0 }) {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-4 lg:space-x-8 items-center">
-              <Link href="/" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base">
+              <Link href="/" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
                 Home
               </Link>
-              <Link href="/products" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base">
+              <Link href="/products" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
                 Shop
               </Link>
-              <Link href="/offers" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base">
+              <Link href="/offers" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
                 Offers
               </Link>
-              <Link href="/orders" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base">
+              <Link href="/orders" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
                 Orders
               </Link>
             </nav>
