@@ -11,6 +11,15 @@ import Head from 'next/head';
 export default function Home() {
   const featuredProducts = products.slice(0, 4);
 
+  // Splash screen state
+  const [showSplash, setShowSplash] = useState(true);
+  const [doorOpen, setDoorOpen] = useState(false);
+  useEffect(() => {
+    const timer1 = setTimeout(() => setDoorOpen(true), 1200); // start door opening
+    const timer2 = setTimeout(() => setShowSplash(false), 2600); // remove splash
+    return () => { clearTimeout(timer1); clearTimeout(timer2); };
+  }, []);
+
   // Banner carousel logic
   const bannerImages = [
     '/Banner/b4.png',
@@ -32,10 +41,28 @@ export default function Home() {
   const prevBanner = () => setCurrentBanner((prev) => (prev - 1 + bannerImages.length) % bannerImages.length);
   const nextBanner = () => setCurrentBanner((prev) => (prev + 1) % bannerImages.length);
 
+  if (showSplash) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white overflow-hidden">
+        {/* Left Door */}
+        <div className={`fixed top-0 left-0 h-full w-1/2 bg-gray-900 transition-transform duration-[1400ms] ease-in-out ${doorOpen ? '-translate-x-full' : 'translate-x-0'}`}></div>
+        {/* Right Door */}
+        <div className={`fixed top-0 right-0 h-full w-1/2 bg-gray-900 transition-transform duration-[1400ms] ease-in-out ${doorOpen ? 'translate-x-full' : 'translate-x-0'}`}></div>
+        {/* Brand Name */}
+        <span
+          className={`text-6xl sm:text-8xl font-black tracking-widest splash-door-text transition-opacity duration-500 ${doorOpen ? 'opacity-0' : 'opacity-100'}`}
+          style={{ fontFamily: 'Orbitron, Arial, sans-serif', color: '#fff', zIndex: 60, position: 'absolute' }}
+        >
+          NXTLook
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white font-sans">
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Raleway:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
       <Header />
       {/* Banner Carousel */}
@@ -164,7 +191,7 @@ export default function Home() {
             </h2>
             <Link
               href="/products"
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-gray-800 hover:text-gray-900 font-medium"
             >
               View All →
             </Link>
@@ -177,15 +204,15 @@ export default function Home() {
                     src={product.image}
                     alt={product.name}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                   />
                   <div className="absolute top-2 right-2 bg-white px-2 py-1 rounded-full text-sm font-semibold text-gray-800">
                     ${product.price}
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
-                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">{product.description}</p>
+                  <h3 className="text-lg font-semibold text-black mb-2">{product.name}</h3>
+                  <p className="text-gray-700 text-sm mb-3 line-clamp-2">{product.description}</p>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       {[...Array(5)].map((_, i) => (
@@ -204,7 +231,7 @@ export default function Home() {
                     </div>
                     <Link
                       href={`/products/${product.id}`}
-                      className="text-blue-600 hover:text-blue-700 font-medium text-sm"
+                      className="text-gray-800 hover:text-gray-900 font-medium text-sm"
                     >
                       View Details →
                     </Link>
@@ -216,39 +243,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 bg-gray-50">
+      {/* Why Shop With NXTLook Section */}
+      <section className="py-16 bg-gradient-to-r from-gray-50 to-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
-            Why Choose Us
+            Why Shop With NXTLook?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            {/* Card 1 */}
+            <div className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition-shadow">
+              <div className="w-14 h-14 flex items-center justify-center mb-4 rounded-full bg-yellow-100">
+                <svg className="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 8v4m8-4a8 8 0 11-16 0 8 8 0 0116 0z" /></svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Free Shipping</h3>
-              <p className="text-gray-600">Free shipping on orders over $50</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2" style={{ fontFamily: 'Raleway, Arial, sans-serif' }}>Curated Collections</h3>
+              <p className="text-gray-600 text-sm" style={{ fontFamily: 'Open Sans, Arial, sans-serif' }}>Handpicked styles from top brands, updated every season.</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            {/* Card 2 */}
+            <div className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition-shadow">
+              <div className="w-14 h-14 flex items-center justify-center mb-4 rounded-full bg-green-100">
+                <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Quality Guarantee</h3>
-              <p className="text-gray-600">30-day return policy on all items</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2" style={{ fontFamily: 'Raleway, Arial, sans-serif' }}>Authenticity Guaranteed</h3>
+              <p className="text-gray-600 text-sm" style={{ fontFamily: 'Open Sans, Arial, sans-serif' }}>100% genuine products, direct from the brands you love.</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 109.75 9.75A9.75 9.75 0 0012 2.25z" />
-                </svg>
+            {/* Card 3 */}
+            <div className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition-shadow">
+              <div className="w-14 h-14 flex items-center justify-center mb-4 rounded-full bg-blue-100">
+                <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2a4 4 0 018 0v2m-4 4a4 4 0 01-4-4H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3a4 4 0 01-4 4z" /></svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">24/7 Support</h3>
-              <p className="text-gray-600">Round the clock customer support</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2" style={{ fontFamily: 'Raleway, Arial, sans-serif' }}>Fast & Free Delivery</h3>
+              <p className="text-gray-600 text-sm" style={{ fontFamily: 'Open Sans, Arial, sans-serif' }}>Lightning-fast shipping, free on all orders over $50.</p>
+            </div>
+            {/* Card 4 */}
+            <div className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition-shadow">
+              <div className="w-14 h-14 flex items-center justify-center mb-4 rounded-full bg-purple-100">
+                <svg className="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2" style={{ fontFamily: 'Raleway, Arial, sans-serif' }}>Easy Returns</h3>
+              <p className="text-gray-600 text-sm" style={{ fontFamily: 'Open Sans, Arial, sans-serif' }}>No-hassle 30-day returns for a worry-free experience.</p>
             </div>
           </div>
         </div>
