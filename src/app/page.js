@@ -66,30 +66,30 @@ export default function Home() {
           <button onClick={nextBanner} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-md z-10">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
-          {/* Dots */}
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
-            {bannerImages.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => goToBanner(idx)}
-                className={`w-3 h-3 rounded-full border-2 ${currentBanner === idx ? 'bg-white border-gray-800' : 'bg-gray-300 border-white'} transition-all`}
-                aria-label={`Go to banner ${idx + 1}`}
+          {/* Progress Bar Overlayed at Bottom Center */}
+          <div className="absolute left-1/2 bottom-8 -translate-x-1/2 z-50 w-40 flex justify-center items-center">
+            <div className="relative w-full h-1 bg-gray-300 rounded-full overflow-hidden">
+              <div
+                className="absolute top-0 left-0 h-1 bg-gray-800 rounded-full transition-all duration-500"
+                style={{
+                  width: `${((currentBanner + 1) / bannerImages.length) * 100}%`
+                }}
               />
-            ))}
+            </div>
           </div>
-        </div>
+        </div> {/* end of banner carousel container */}
       </section>
 
       {/* Trusted Brands Marquee Section */}
       <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-6" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
-            Trusted Brands
+            Our Trusted Brands
           </h2>
           <div className="overflow-hidden whitespace-nowrap relative">
             <div
               className="inline-block animate-marquee"
-              style={{ animation: 'marquee 15s linear infinite' }}
+              style={{ animation: 'marquee 22s linear infinite' }}
             >
               {[
                 { src: '/brands/nike.svg', alt: 'Nike' },
@@ -102,11 +102,28 @@ export default function Home() {
                 { src: '/brands/h&m.svg', alt: 'H&M' },
                 { src: '/brands/bata.svg', alt: 'Bata' },
                 { src: '/brands/apple.svg', alt: 'Apple' },
-                { src: '/brands/Tommy_Hilfiger.svg', alt: 'Tommy Hilfiger', style: { height: 32 } },
+                { src: '/brands/Tommy_Hilfiger.svg', alt: 'Tommy Hilfiger' },
                 { src: '/brands/fossil.svg', alt: 'Fossil' },
                 { src: '/brands/fastrack.svg', alt: 'Fastrack' },
                 { src: '/brands/under-armour.svg', alt: 'Under Armour' },
-              ].map((brand, idx) => (
+                { src: '/brands/skybags.svg', alt: 'Skybag' },
+              ].concat([
+                { src: '/brands/nike.svg', alt: 'Nike' },
+                { src: '/brands/adidas.svg', alt: 'Adidas' },
+                { src: '/brands/puma.svg', alt: 'Puma' },
+                { src: '/brands/levi.svg', alt: 'Levi’s' },
+                { src: '/brands/calvin-klein.svg', alt: 'Calvin Klein' },
+                { src: '/brands/allen-solly.svg', alt: 'Allen Solly' },
+                { src: '/brands/zara.svg', alt: 'Zara' },
+                { src: '/brands/h&m.svg', alt: 'H&M' },
+                { src: '/brands/bata.svg', alt: 'Bata' },
+                { src: '/brands/apple.svg', alt: 'Apple' },
+                { src: '/brands/Tommy_Hilfiger.svg', alt: 'Tommy Hilfiger' },
+                { src: '/brands/fossil.svg', alt: 'Fossil' },
+                { src: '/brands/fastrack.svg', alt: 'Fastrack' },
+                { src: '/brands/under-armour.svg', alt: 'Under Armour' },
+                { src: '/brands/skybags.svg', alt: 'Skybag' },
+              ]).map((brand, idx) => (
                 <span
                   key={idx}
                   className="inline-block mx-8 align-middle"
@@ -114,7 +131,16 @@ export default function Home() {
                   <img
                     src={brand.src}
                     alt={brand.alt}
-                    style={{ height: brand.style?.height || 48, width: 'auto', display: 'inline-block', filter: 'grayscale(60%)', opacity: 0.85 }}
+                    style={{
+                      height: 40,
+                      maxWidth: 100,
+                      width: 'auto',
+                      objectFit: 'contain',
+                      display: 'inline-block',
+                      filter: 'grayscale(60%)',
+                      opacity: 0.85,
+                      verticalAlign: 'middle',
+                    }}
                   />
                 </span>
               ))}
