@@ -20,7 +20,7 @@ export default function OffersPage() {
       description: 'Enjoy up to 50% off on select items this winter. No minimum purchase required. Available for all customers!',
       discount: '50% OFF',
       code: 'WINTER50',
-      validUntil: '2024-08-31',
+      validUntil: '2025-10-01',
     },
     {
       id: 2,
@@ -28,7 +28,7 @@ export default function OffersPage() {
       description: 'Get free shipping on all orders above $49. No code needed. Offer valid for everyone!',
       discount: 'Free Shipping',
       code: 'FREESHIP',
-      validUntil: '2024-09-15',
+      validUntil: '2025-12-31',
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ export default function OffersPage() {
       description: 'Buy one, get one free on select products. No restrictions—everyone can enjoy!',
       discount: 'BOGO',
       code: 'BOGO24',
-      validUntil: '2024-07-31',
+      validUntil: '2025-11-15',
     },
     {
       id: 4,
@@ -44,7 +44,7 @@ export default function OffersPage() {
       description: 'Get $20 off on orders over $100. Open to all customers!',
       discount: '$20 OFF',
       code: 'SAVE20',
-      validUntil: '2024-08-15',
+      validUntil: '2025-12-01',
     },
     {
       id: 5,
@@ -52,7 +52,7 @@ export default function OffersPage() {
       description: 'Extra 15% off on all products this weekend. No restrictions—everyone can use!',
       discount: '15% OFF',
       code: 'FLASH15',
-      validUntil: '2024-07-07',
+      validUntil: '2025-10-20',
     },
     {
       id: 6,
@@ -60,11 +60,11 @@ export default function OffersPage() {
       description: 'Clearance sale: up to 70% off on last season’s styles. Available for all shoppers!',
       discount: 'Up to 70% OFF',
       code: 'CLEAR70',
-      validUntil: '2024-09-01',
+      validUntil: '2025-12-15',
     },
   ];
 
-  const wheelRadius = 180; // px
+  const wheelRadius = 220; // px
   const centerX = 0;
   const centerY = 0;
   const angleStep = 360 / offers.length;
@@ -83,7 +83,8 @@ export default function OffersPage() {
     if (isSpinning) return;
     setIsSpinning(true);
     const targetIdx = getRandomIdx();
-    let steps = (targetIdx - activeIdx + offers.length) % offers.length + offers.length * 5; // 5 full spins
+    // Reduce spin time: fewer full spins
+    let steps = (targetIdx - activeIdx + offers.length) % offers.length + offers.length * 2; // 2 full spins
     const queue = [];
     for (let i = 1; i <= steps; i++) {
       queue.push((activeIdx + i) % offers.length);
@@ -101,7 +102,7 @@ export default function OffersPage() {
         setIsSpinning(false);
         setHasSpun(true);
       }
-    }, Math.max(40, 200 - spinQueue.length * 2)); // decelerate
+    }, Math.max(30, 120 - spinQueue.length * 2)); // faster decelerate
     return () => clearTimeout(timeout);
   }, [spinQueue]);
 
@@ -133,16 +134,22 @@ export default function OffersPage() {
       </section>
 
       {/* Interactive Spinning Wheel + Offer Details Side by Side */}
-      <div className="flex flex-col md:flex-row items-center justify-center min-h-[500px] relative z-10 gap-8 md:gap-16 w-full max-w-6xl mx-auto px-2 mt-28">
+      <div className="flex flex-col md:flex-row items-center justify-center min-h-[500px] relative z-10 gap-8 md:gap-36 w-full max-w-6xl mx-auto px-2 mt-28">
         {/* Wheel Section */}
         <div className="flex flex-col items-center justify-center w-[320px] sm:w-[420px]">
-          <div className="relative w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] flex-shrink-0 flex items-center justify-center">
+          <div className="relative w-[380px] h-[380px] sm:w-[500px] sm:h-[500px] flex-shrink-0 flex items-center justify-center">
             {/* Fixed Pointer/Arrow at the top center of the wheel (moved further down) */}
             <div className="absolute left-1/2 top-20 -translate-x-1/2 z-40 select-none pointer-events-none">
               <svg width="48" height="32" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <polygon points="24,0 44,28 4,28" fill="#facc15" stroke="#b8860b" strokeWidth="3" />
                 <polygon points="24,6 38,26 10,26" fill="#fffbe6" />
               </svg>
+            </div>
+            {/* Centered 'Offers' text */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none select-none flex flex-col items-center justify-center">
+              <span className="text-4xl sm:text-5xl font-extrabold text-yellow-500 drop-shadow-lg tracking-widest uppercase" style={{ fontFamily: 'Orbitron, Arial, sans-serif', letterSpacing: '0.12em' }}>
+                Offers
+              </span>
             </div>
             {offers.map((offer, idx) => {
               const angle = (idx - activeIdx) * angleStep;
