@@ -11,6 +11,7 @@ export default function OffersPage() {
   const [isSpinning, setIsSpinning] = useState(false);
   const [spinQueue, setSpinQueue] = useState([]); // for animating activeIdx
   const wheelRef = useRef(null);
+  const [hasSpun, setHasSpun] = useState(false); // track if user has spun at least once
 
   const offers = [
     {
@@ -96,10 +97,18 @@ export default function OffersPage() {
     const timeout = setTimeout(() => {
       setActiveIdx(spinQueue[0]);
       setSpinQueue(spinQueue.slice(1));
-      if (spinQueue.length === 1) setIsSpinning(false);
+      if (spinQueue.length === 1) {
+        setIsSpinning(false);
+        setHasSpun(true);
+      }
     }, Math.max(40, 200 - spinQueue.length * 2)); // decelerate
     return () => clearTimeout(timeout);
   }, [spinQueue]);
+
+  // Reset cap when spinning starts
+  React.useEffect(() => {
+    if (isSpinning) setHasSpun(false);
+  }, [isSpinning]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -124,7 +133,7 @@ export default function OffersPage() {
       </section>
 
       {/* Interactive Spinning Wheel + Offer Details Side by Side */}
-      <div className="flex flex-col md:flex-row items-center justify-center min-h-[500px] relative z-10 gap-8 md:gap-16 w-full max-w-6xl mx-auto px-2">
+      <div className="flex flex-col md:flex-row items-center justify-center min-h-[500px] relative z-10 gap-8 md:gap-16 w-full max-w-6xl mx-auto px-2 mt-28">
         {/* Wheel Section */}
         <div className="flex flex-col items-center justify-center w-[320px] sm:w-[420px]">
           <div className="relative w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] flex-shrink-0 flex items-center justify-center">
@@ -172,39 +181,50 @@ export default function OffersPage() {
           </button>
         </div>
         {/* Active Offer Details */}
-        <div className="mt-10 md:mt-0 bg-white/90 rounded-2xl shadow-2xl p-8 max-w-xl w-full flex flex-col items-center animate-offer-detail">
-          <span className="inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold px-6 py-2 rounded-full text-xl mb-4 shadow-md animate-pulse">{offers[activeIdx].discount}</span>
-          <h2 className="text-3xl font-bold text-yellow-900 mb-2 text-center" style={{ fontFamily: 'Raleway, Arial, sans-serif' }}>{offers[activeIdx].title}</h2>
-          <p className="text-gray-800 mb-4 text-center">{offers[activeIdx].description}</p>
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-base text-yellow-900">Code: <span className="font-mono text-yellow-900 font-bold">{offers[activeIdx].code}</span></span>
-            <span className="text-sm text-yellow-800">Valid until: {formatDate(offers[activeIdx].validUntil)}</span>
-                  </div>
-                  <Link
-                    href="/products"
-            className="mt-2 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-200 text-lg"
-                  >
-                    Shop Now
-                  </Link>
-                </div>
-              </div>
+        <div className="mt-10 md:mt-0 bg-white/90 rounded-2xl shadow-2xl p-8 max-w-xl w-full flex flex-col items-center animate-offer-detail relative overflow-hidden">
+          {/* Gift Box Cap Cover */}
+          <div
+            className={`absolute left-0 top-0 w-full h-1/2 flex items-end justify-center transition-transform duration-700 z-20 ${hasSpun && !isSpinning ? '-translate-y-full' : 'translate-y-0'}`}
+            style={{ background: 'linear-gradient(90deg, #facc15 60%, #fffbe6 100%)', borderTopLeftRadius: '1rem', borderTopRightRadius: '1rem', boxShadow: '0 8px 24px 0 #b8860b33' }}
+          >
+            {/* Cap Ribbon */}
+            <div className="w-16 h-3 rounded-b-lg bg-[#b8860b] mb-2"></div>
+          </div>
+          {/* Offer Details (hidden under cap until revealed) */}
+          <div className={`transition-opacity duration-500 ${hasSpun && !isSpinning ? 'opacity-100' : 'opacity-0'}`}>
+            <span className="inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold px-6 py-2 rounded-full text-xl mb-4 shadow-md animate-pulse">{offers[activeIdx].discount}</span>
+            <h2 className="text-3xl font-bold text-yellow-900 mb-2 text-center" style={{ fontFamily: 'Raleway, Arial, sans-serif' }}>{offers[activeIdx].title}</h2>
+            <p className="text-gray-800 mb-4 text-center">{offers[activeIdx].description}</p>
+            <div className="flex items-center gap-4 mb-4">
+              <span className="text-base text-yellow-900">Code: <span className="font-mono text-yellow-900 font-bold">{offers[activeIdx].code}</span></span>
+              <span className="text-sm text-yellow-800">Valid until: {formatDate(offers[activeIdx].validUntil)}</span>
+            </div>
+            <Link
+              href="/products"
+              className="mt-2 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-200 text-lg"
+            >
+              Shop Now
+            </Link>
+          </div>
+        </div>
+      </div>
 
-          {/* Newsletter Signup */}
+      {/* Newsletter Signup */}
       <div className="mt-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-2xl p-10 text-white text-center shadow-2xl max-w-3xl mx-auto">
         <h2 className="text-3xl font-bold mb-4" style={{ fontFamily: 'Raleway, Arial, sans-serif' }}>Stay Updated with Latest Offers</h2>
         <p className="text-yellow-100 mb-6 max-w-2xl mx-auto">
-              Subscribe to our newsletter and be the first to know about exclusive deals, 
-              new arrivals, and special promotions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
+          Subscribe to our newsletter and be the first to know about exclusive deals, 
+          new arrivals, and special promotions.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <input
+            type="email"
+            placeholder="Enter your email"
             className="flex-1 px-4 py-3 rounded-lg text-yellow-900 focus:outline-none focus:ring-2 focus:ring-yellow-200"
-              />
+          />
           <button className="bg-white text-yellow-700 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-100 transition-colors">
-                Subscribe
-              </button>
+            Subscribe
+          </button>
         </div>
       </div>
 

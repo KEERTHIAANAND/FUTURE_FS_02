@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { products, categories } from '../data/products';
 
-export default function ProductGrid() {
+export default function ProductGrid({ onAddToCart }) {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [selectedMainCategory, setSelectedMainCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
@@ -60,31 +60,8 @@ export default function ProductGrid() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, [selectedMainCategory]);
 
-  const handleAddToCart = (product) => {
-    // Get existing cart from localStorage
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    
-    // Check if product already exists in cart with same size and color
-    const existingItemIndex = existingCart.findIndex(item => 
-      item.id === product.id && 
-      item.selectedSize === product.selectedSize && 
-      item.selectedColor === product.selectedColor
-    );
-    
-    if (existingItemIndex >= 0) {
-      // Update quantity of existing item
-      existingCart[existingItemIndex].quantity += product.quantity;
-    } else {
-      // Add new item to cart
-      existingCart.push(product);
-    }
-    
-    // Save updated cart to localStorage
-    localStorage.setItem('cart', JSON.stringify(existingCart));
-    
-    // Show success message (you could add a toast notification here)
-    alert(`${product.name} added to cart!`);
-  };
+  // Use the passed onAddToCart handler if provided
+  const handleAddToCart = onAddToCart || (() => {});
 
   return (
     <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-6 sm:py-8">
