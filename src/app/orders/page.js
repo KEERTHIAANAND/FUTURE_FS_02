@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '../../components/Header';
+import Image from 'next/image';
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -112,7 +113,14 @@ export default function OrdersPage() {
                     <div className="space-y-4">
                       {order.items.map((item) => (
                         <div key={`${order.id}-${item.id}`} className="flex items-center space-x-4">
-                          <div className="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0"></div>
+                          <div className="relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
                           <div className="flex-1 min-w-0">
                             <h4 className="text-sm font-medium text-gray-900 truncate">
                               {item.name}

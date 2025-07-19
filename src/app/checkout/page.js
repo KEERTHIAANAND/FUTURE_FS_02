@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '../../components/Header';
 import CheckoutForm from '../../components/CheckoutForm';
+import Image from 'next/image';
 
 export default function CheckoutPage() {
   const [cart, setCart] = useState([]);
@@ -101,7 +102,14 @@ export default function CheckoutPage() {
                 <div className="space-y-4 mb-6">
                   {cart.map((item) => (
                     <div key={item.id} className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-gray-100 rounded-md flex-shrink-0"></div>
+                      <div className="relative w-12 h-12 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-sm font-medium text-gray-900 truncate">
                           {item.name}
