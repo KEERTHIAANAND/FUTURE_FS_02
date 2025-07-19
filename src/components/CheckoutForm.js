@@ -342,7 +342,7 @@ export default function CheckoutForm({ onSubmit, isSubmitting }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+          className="bg-gray-800 text-white border border-gray-800 px-8 py-3 rounded-md hover:bg-gray-900 focus:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
         >
           {isSubmitting ? 'Processing...' : 'Place Order'}
         </button>

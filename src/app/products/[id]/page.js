@@ -180,8 +180,8 @@ export default function ProductDetailPage() {
                       onClick={() => setSelectedSize(size)}
                       className={`px-4 py-2 border rounded-md transition-colors ${
                         selectedSize === size
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-blue-600'
+                          ? 'bg-gray-800 text-white border-gray-800'
+                          : 'bg-gray-200 text-gray-700 border-gray-300 hover:border-blue-600'
                       }`}
                     >
                       {size}
@@ -200,8 +200,8 @@ export default function ProductDetailPage() {
                       onClick={() => setSelectedColor(color)}
                       className={`px-4 py-2 border rounded-md transition-colors ${
                         selectedColor === color
-                          ? 'bg-blue-600 text-white border-blue-600'
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-blue-600'
+                          ? 'bg-gray-800 text-white border-gray-800'
+                          : 'bg-gray-200 text-gray-700 border-gray-300 hover:border-blue-600'
                       }`}
                     >
                       {color}
@@ -233,7 +233,7 @@ export default function ProductDetailPage() {
               {/* Add to Cart Button */}
               <button
                 onClick={handleAddToCart}
-                className="w-full bg-blue-600 text-white py-4 px-6 rounded-md hover:bg-blue-700 transition-colors font-medium text-lg"
+                className="w-full bg-gray-800 text-white border border-gray-800 py-4 px-6 rounded-md hover:bg-gray-900 focus:bg-gray-900 transition-colors font-medium text-lg"
               >
                 Add to Cart
               </button>

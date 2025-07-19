@@ -69,8 +69,8 @@ export default function ProductCard({ product, onAddToCart }) {
                 onClick={() => setSelectedSize(size)}
                 className={`px-2 sm:px-3 py-1 text-xs sm:text-sm border rounded-md transition-colors ${
                   selectedSize === size
-                    ? 'bg-[rgb(169,169,169)] text-white border-[rgb(169,169,169)]'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-gray-500'
+                    ? 'bg-gray-800 text-white border-gray-800'
+                    : 'bg-gray-200 text-gray-700 border-gray-300 hover:border-gray-500'
                 }`}
               >
                 {size}
@@ -89,8 +89,8 @@ export default function ProductCard({ product, onAddToCart }) {
                 onClick={() => setSelectedColor(color)}
                 className={`px-2 sm:px-3 py-1 text-xs sm:text-sm border rounded-md transition-colors ${
                   selectedColor === color
-                    ? 'bg-[rgb(169,169,169)] text-white border-[rgb(169,169,169)]'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-gray-500'
+                    ? 'bg-gray-800 text-white border-gray-800'
+                    : 'bg-gray-200 text-gray-700 border-gray-300 hover:border-gray-500'
                 }`}
               >
                 {color}
@@ -122,7 +122,7 @@ export default function ProductCard({ product, onAddToCart }) {
         {/* Add to Cart Button */}
         <button
           onClick={handleAddToCart}
-          className="w-full bg-[rgb(105,105,105)] text-white py-2 px-4 rounded-md hover:bg-gray-900 transition-colors duration-200 font-medium text-xs sm:text-base"
+          className="w-full bg-gray-800 text-white border border-gray-800 py-2 px-4 rounded-md hover:bg-gray-900 focus:bg-gray-900 transition-colors duration-200 font-medium text-xs sm:text-base"
         >
           Add to Cart
         </button>

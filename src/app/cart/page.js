@@ -8,6 +8,7 @@ import CartItem from '../../components/CartItem';
 export default function CartPage() {
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedButton, setSelectedButton] = useState('checkout'); // 'checkout' or 'continue'
   const router = useRouter();
 
   useEffect(() => {
@@ -160,15 +161,15 @@ export default function CartPage() {
                   </div>
 
                   <button
-                    onClick={handleCheckout}
-                    className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium mt-6"
+                    onClick={() => { setSelectedButton('checkout'); handleCheckout(); }}
+                    className={`w-full py-3 px-4 rounded-md font-medium mt-6 transition-colors border ${selectedButton === 'checkout' ? 'bg-gray-800 text-white border-gray-800' : 'bg-gray-100 text-gray-700 border-gray-100 hover:bg-gray-200'}`}
                   >
                     Proceed to Checkout
                   </button>
 
                   <button
-                    onClick={() => router.push('/products')}
-                    className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-md hover:bg-gray-200 transition-colors font-medium mt-3"
+                    onClick={() => { setSelectedButton('continue'); router.push('/products'); }}
+                    className={`w-full py-3 px-4 rounded-md font-medium mt-3 transition-colors border ${selectedButton === 'continue' ? 'bg-gray-800 text-white border-gray-800' : 'bg-gray-100 text-gray-700 border-gray-100 hover:bg-gray-200'}`}
                   >
                     Continue Shopping
                   </button>
