@@ -90,7 +90,7 @@ export default function CartPage() {
                 </svg>
               </div>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">Your cart is empty</h2>
-              <p className="text-gray-600 mb-8">Looks like you haven't added any items to your cart yet.</p>
+              <p className="text-gray-600 mb-8">Looks like you haven&apos;t added any items to your cart yet.</p>
               <button
                 onClick={() => router.push('/products')}
                 className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors font-medium"

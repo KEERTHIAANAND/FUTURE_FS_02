@@ -61,22 +61,6 @@ export default function Header({ cartItemCount = 0 }) {
 
             {/* Right Side Actions with Search Box on the right */}
             <div className="flex items-center space-x-2 sm:space-x-4">
-              {/* Compact Desktop Search Box - with icon inside */}
-              <div className="hidden md:flex items-center mx-1 sm:mx-2">
-                <div className="relative w-28 sm:w-40">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-full px-2 py-1 pl-8 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-xs sm:text-sm bg-white text-gray-900 placeholder-gray-400"
-                  />
-                  <div className="absolute left-2 top-1.5 text-gray-400">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
               {/* Cart */}
               <Link href="/cart" className="relative p-1 sm:p-2 text-gray-700 hover:text-purple-600 transition-colors">
                 <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">

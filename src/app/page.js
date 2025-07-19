@@ -149,7 +149,7 @@ export default function Home() {
                 { src: '/brands/nike.svg', alt: 'Nike' },
                 { src: '/brands/adidas.svg', alt: 'Adidas' },
                 { src: '/brands/puma.svg', alt: 'Puma' },
-                { src: '/brands/levi.svg', alt: 'Levi’s' },
+                { src: '/brands/levi.svg', alt: 'Levi&apos;s' },
                 { src: '/brands/calvin-klein.svg', alt: 'Calvin Klein' },
                 { src: '/brands/allen-solly.svg', alt: 'Allen Solly' },
                 { src: '/brands/zara.svg', alt: 'Zara' },
@@ -165,7 +165,7 @@ export default function Home() {
                 { src: '/brands/nike.svg', alt: 'Nike' },
                 { src: '/brands/adidas.svg', alt: 'Adidas' },
                 { src: '/brands/puma.svg', alt: 'Puma' },
-                { src: '/brands/levi.svg', alt: 'Levi’s' },
+                { src: '/brands/levi.svg', alt: 'Levi&apos;s' },
                 { src: '/brands/calvin-klein.svg', alt: 'Calvin Klein' },
                 { src: '/brands/allen-solly.svg', alt: 'Allen Solly' },
                 { src: '/brands/zara.svg', alt: 'Zara' },
@@ -322,7 +322,7 @@ export default function Home() {
                 <span className="text-xl font-bold" style={{ fontFamily: 'var(--font-orbitron)' }}>NXTLook</span>
               </div>
               <p className="text-gray-400">
-                Your premium destination for modern men's fashion and style.
+                Your premium destination for modern men&apos;s fashion and style.
               </p>
             </div>
             <div>

@@ -186,9 +186,8 @@ export default function ProductGrid({ onAddToCart }) {
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch justify-items-center">
           {filteredProducts.map((product) => (
-            <div className="flex flex-col h-full w-full items-center justify-center">
+            <div key={product.id} className="flex flex-col h-full w-full items-center justify-center">
               <ProductCard
-                key={product.id}
                 product={product}
                 onAddToCart={handleAddToCart}
               />
