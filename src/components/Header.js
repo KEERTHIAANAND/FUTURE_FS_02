@@ -51,7 +51,7 @@ export default function Header({ cartItemCount = 0 }) {
               <Link href="/products" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
                 Shop
               </Link>
-              <Link href="/offers" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
+              <Link href="/offers" className="text-[#b8860b] font-bold drop-shadow-[0_0_8px_#b8860b] transition-colors font-medium text-sm lg:text-base" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
                 Offers
               </Link>
               <Link href="/orders" className="text-gray-700 hover:text-purple-600 transition-colors font-medium text-sm lg:text-base" style={{ fontFamily: 'Orbitron, Arial, sans-serif' }}>
