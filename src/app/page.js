@@ -41,6 +41,33 @@ export default function Home() {
   const prevBanner = () => setCurrentBanner((prev) => (prev - 1 + bannerImages.length) % bannerImages.length);
   const nextBanner = () => setCurrentBanner((prev) => (prev + 1) % bannerImages.length);
 
+  // Flash message state
+  const [flashMsg, setFlashMsg] = useState(null);
+
+  // Handler for add to cart from featured products
+  const handleAddToCart = (product) => {
+    // Get existing cart from localStorage
+    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    // Check if product already exists in cart with same size and color
+    const existingItemIndex = existingCart.findIndex(item =>
+      item.id === product.id &&
+      item.selectedSize === product.selectedSize &&
+      item.selectedColor === product.selectedColor
+    );
+    if (existingItemIndex >= 0) {
+      // Update quantity of existing item
+      existingCart[existingItemIndex].quantity += product.quantity;
+    } else {
+      // Add new item to cart
+      existingCart.push(product);
+    }
+    // Save updated cart to localStorage
+    localStorage.setItem('cart', JSON.stringify(existingCart));
+    // Show flash message
+    setFlashMsg('Successfully added to cart!');
+    setTimeout(() => setFlashMsg(null), 3000);
+  };
+
   if (showSplash) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-white overflow-hidden">
@@ -336,10 +363,39 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">&copy; 2024 NXTLook. All rights reserved.</p>
+            <p className="text-gray-400">&copy; 2025 NXTLook. All rights reserved.</p>
           </div>
         </div>
       </footer>
+      {/* Flash Message */}
+      {flashMsg && (
+        <div className="fixed top-6 right-6 z-50 flex items-center px-6 py-3 bg-green-100 border border-green-300 rounded-lg shadow-lg animate-flash-in">
+          <svg className="w-7 h-7 text-green-600 mr-3 animate-tick" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+          <span className="text-green-800 font-semibold text-lg">{flashMsg}</span>
+          <style jsx>{`
+            @keyframes flash-in {
+              0% { opacity: 0; transform: translateY(-20px) scale(0.95); }
+              60% { opacity: 1; transform: translateY(4px) scale(1.05); }
+              100% { opacity: 1; transform: translateY(0) scale(1); }
+            }
+            .animate-flash-in {
+              animation: flash-in 0.5s cubic-bezier(0.4,0,0.2,1) both;
+            }
+            @keyframes tick {
+              0% { stroke-dasharray: 0 24; }
+              60% { stroke-dasharray: 24 0; }
+              100% { stroke-dasharray: 24 0; }
+            }
+            .animate-tick path {
+              stroke-dasharray: 24 0;
+              stroke-dashoffset: 0;
+              animation: tick 0.7s cubic-bezier(0.4,0,0.2,1) both;
+            }
+          `}</style>
+        </div>
+      )}
     </div>
   );
 }
