@@ -64,31 +64,55 @@ export default function AuthModal({ isOpen, onClose }) {
     setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Store user data in localStorage (in a real app, this would be handled by a backend)
-      const userData = {
-        email: formData.email,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        isLoggedIn: true
-      };
-      
-      localStorage.setItem('user', JSON.stringify(userData));
-      
-      // Reset form
-      setFormData({
-        email: '',
-        password: '',
-        confirmPassword: '',
-        firstName: '',
-        lastName: ''
-      });
-      
-      onClose();
-      window.location.reload(); // Refresh to update header state
+      if (!isLogin) {
+        // SIGNUP: Call your backend API
+        const res = await fetch("http://localhost:5000/api/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.firstName,
+            lastname: formData.lastName,
+            email: formData.email,
+            password: formData.password
+          })
+        });
+        const data = await res.json();
+        if (res.status === 201) {
+          setFormData({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            firstName: '',
+            lastName: ''
+          });
+          setErrors({});
+          onClose();
+          window.location.reload();
+        } else {
+          setErrors({ api: data.message || "Signup failed." });
+        }
+      } else {
+        // LOGIN: Simulate login (replace with real API later)
+        const userData = {
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          isLoggedIn: true
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
+        setFormData({
+          email: '',
+          password: '',
+          confirmPassword: '',
+          firstName: '',
+          lastName: ''
+        });
+        setErrors({});
+        onClose();
+        window.location.reload();
+      }
     } catch (error) {
+      setErrors({ api: "Server error. Please try again." });
       console.error('Auth error:', error);
     } finally {
       setIsLoading(false);
@@ -257,6 +281,10 @@ export default function AuthModal({ isOpen, onClose }) {
                   <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
                 )}
               </div>
+            )}
+
+            {errors.api && (
+              <p className="text-red-500 text-sm mb-2">{errors.api}</p>
             )}
 
             {/* Submit Button */}
