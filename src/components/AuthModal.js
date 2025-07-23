@@ -78,6 +78,11 @@ export default function AuthModal({ isOpen, onClose }) {
         });
         const data = await res.json();
         if (res.status === 201) {
+          // Automatically log in the user after signup
+          const user = data.user;
+          const token = data.token;
+          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('token', token);
           setFormData({
             email: '',
             password: '',
@@ -92,24 +97,33 @@ export default function AuthModal({ isOpen, onClose }) {
           setErrors({ api: data.message || "Signup failed." });
         }
       } else {
-        // LOGIN: Simulate login (replace with real API later)
-        const userData = {
-          email: formData.email,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          isLoggedIn: true
-        };
-        localStorage.setItem('user', JSON.stringify(userData));
-        setFormData({
-          email: '',
-          password: '',
-          confirmPassword: '',
-          firstName: '',
-          lastName: ''
+        // LOGIN: Call backend API for validation
+        const res = await fetch("http://localhost:5000/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password
+          })
         });
-        setErrors({});
-        onClose();
-        window.location.reload();
+        const data = await res.json();
+        if (res.status === 200) {
+          // Login successful
+          localStorage.setItem('user', JSON.stringify(data.user));
+          localStorage.setItem('token', data.token);
+          setFormData({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            firstName: '',
+            lastName: ''
+          });
+          setErrors({});
+          onClose();
+          window.location.reload();
+        } else {
+          setErrors({ api: data.message || "Login failed." });
+        }
       }
     } catch (error) {
       setErrors({ api: "Server error. Please try again." });
