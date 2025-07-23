@@ -25,6 +25,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Import models
 const User = require('./models/User');
 const Order = require('./models/Order');
+const Cart = require('./models/Cart');
 
 // JWT authentication middleware
 function authenticateToken(req, res, next) {
@@ -57,13 +58,18 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-// Order creation route
-app.post('/api/order', async (req, res) => {
+// Create a new order (protected)
+app.post('/api/order', authenticateToken, async (req, res) => {
   try {
-    const { userId, items, total, address } = req.body;
-    const order = new Order({ userId, items, total, address });
+    const { items, total, address } = req.body;
+    const order = new Order({
+      userId: req.user.id,
+      items,
+      total,
+      address
+    });
     await order.save();
-    res.status(201).json({ message: 'Order placed successfully', orderId: order._id });
+    res.status(201).json({ message: 'Order placed successfully', order });
   } catch (err) {
     res.status(500).json({ message: 'Error placing order', error: err.message });
   }
@@ -108,6 +114,46 @@ app.get('/api/profile', authenticateToken, async (req, res) => {
     res.json({ user });
   } catch (err) {
     res.status(500).json({ message: 'Error fetching profile', error: err.message });
+  }
+});
+
+// Protected route: Get user's orders
+app.get('/api/orders', authenticateToken, async (req, res) => {
+  try {
+    // Only return orders for the logged-in user
+    const orders = await Order.find({ userId: req.user.id });
+    res.json({ orders });
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching orders', error: err.message });
+  }
+});
+
+// Get user's cart (protected)
+app.get('/api/cart', authenticateToken, async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ userId: req.user.id });
+    res.json({ cart });
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching cart', error: err.message });
+  }
+});
+
+// Create or update user's cart (protected)
+app.post('/api/cart', authenticateToken, async (req, res) => {
+  try {
+    const { items } = req.body;
+    let cart = await Cart.findOne({ userId: req.user.id });
+    if (cart) {
+      cart.items = items;
+      cart.updatedAt = Date.now();
+      await cart.save();
+    } else {
+      cart = new Cart({ userId: req.user.id, items });
+      await cart.save();
+    }
+    res.status(200).json({ message: 'Cart updated successfully', cart });
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating cart', error: err.message });
   }
 });
 
