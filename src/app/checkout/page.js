@@ -36,32 +36,44 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (formData) => {
     setIsSubmitting(true);
-    
-    // Simulate order processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Create order object
-    const order = {
-      id: `ORD-${Date.now()}`,
-      items: cart,
-      customer: formData,
-      subtotal: getSubtotal(),
-      shipping: getShipping(),
-      total: getTotal(),
-      status: 'confirmed',
-      date: new Date().toISOString()
-    };
 
-    // Save order to localStorage (simulating order history)
-    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-    orders.push(order);
-    localStorage.setItem('orders', JSON.stringify(orders));
-
-    // Clear cart
-    localStorage.removeItem('cart');
-
-    // Redirect to order confirmation
-    router.push(`/orders/${order.id}`);
+    // Place order via backend
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch('http://localhost:5000/api/order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          items: cart,
+          total: getTotal(),
+          address: formData.address
+        })
+      });
+      if (res.ok) {
+        // Clear cart in backend
+        await fetch('http://localhost:5000/api/cart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ items: [] })
+        });
+        // Clear cart in localStorage
+        localStorage.removeItem('cart');
+        setCart([]);
+        // Redirect to orders page
+        router.push('/orders');
+      } else {
+        // Handle order error (optional)
+      }
+    } catch (err) {
+      // Handle network error (optional)
+    }
+    setIsSubmitting(false);
   };
 
   if (cart.length === 0) {

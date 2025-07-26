@@ -11,10 +11,33 @@ export default function OrdersPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Load orders from localStorage
-    const savedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
-    setOrders(savedOrders.reverse()); // Show newest first
-    setIsLoading(false);
+    // Fetch orders from backend
+    const fetchOrders = async () => {
+      setIsLoading(true);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setOrders([]);
+        setIsLoading(false);
+        return;
+      }
+      try {
+        const res = await fetch('http://localhost:5000/api/orders', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setOrders((data.orders || []).reverse()); // Show newest first
+        } else {
+          setOrders([]);
+        }
+      } catch (err) {
+        setOrders([]);
+      }
+      setIsLoading(false);
+    };
+    fetchOrders();
   }, []);
 
   const getStatusColor = (status) => {
@@ -38,6 +61,12 @@ export default function OrdersPage() {
       hour: '2-digit',
       minute: '2-digit'
     });
+  };
+
+  // Add safeToFixed helper
+  const safeToFixed = (value, digits = 2) => {
+    const num = Number(value);
+    return isNaN(num) ? '0.00' : num.toFixed(digits);
   };
 
   if (isLoading) {
@@ -82,13 +111,13 @@ export default function OrdersPage() {
           ) : (
             <div className="space-y-6">
               {orders.map((order) => (
-                <div key={order.id} className="bg-white rounded-lg shadow-sm border overflow-hidden">
+                <div key={order._id} className="bg-white rounded-lg shadow-sm border overflow-hidden">
                   {/* Order Header */}
                   <div className="p-6 border-b border-gray-200">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900">
-                          Order #{order.id}
+                          Order #{order._id}
                         </h3>
                         <p className="text-sm text-gray-600 mt-1">
                           Placed on {formatDate(order.date)}
@@ -96,10 +125,10 @@ export default function OrdersPage() {
                       </div>
                       <div className="mt-4 sm:mt-0 flex items-center space-x-4">
                         <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(order.status)}`}>
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                          {(order.status || 'Pending').charAt(0).toUpperCase() + (order.status || 'Pending').slice(1)}
                         </span>
                         <button
-                          onClick={() => router.push(`/orders/${order.id}`)}
+                          onClick={() => router.push(`/orders/${order._id}`)}
                           className="text-blue-600 hover:text-blue-700 font-medium text-sm"
                         >
                           View Details →
@@ -114,12 +143,19 @@ export default function OrdersPage() {
                       {order.items.map((item) => (
                         <div key={`${order.id}-${item.id}`} className="flex items-center space-x-4">
                           <div className="relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                            <Image
-                              src={item.image}
-                              alt={item.name}
-                              fill
-                              className="object-cover"
-                            />
+                            {item.image ? (
+                              <Image
+                                src={item.image}
+                                alt={item.name}
+                                fill
+                                className="object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500 text-xs">
+                                No Image
+                              </div>
+                            )}
+
                           </div>
                           <div className="flex-1 min-w-0">
                             <h4 className="text-sm font-medium text-gray-900 truncate">
@@ -133,7 +169,7 @@ export default function OrdersPage() {
                             </p>
                           </div>
                           <div className="text-sm font-medium text-gray-900">
-                            ${(item.price * item.quantity).toFixed(2)}
+                            ${safeToFixed(item.price * item.quantity)}
                           </div>
                         </div>
                       ))}
@@ -147,13 +183,13 @@ export default function OrdersPage() {
                         </div>
                         <div className="text-right">
                           <div className="text-sm text-gray-600">
-                            Subtotal: ${order.subtotal.toFixed(2)}
+                            Subtotal: ${safeToFixed(order.subtotal)}
                           </div>
                           <div className="text-sm text-gray-600">
-                            Shipping: {order.shipping === 0 ? 'Free' : `$${order.shipping.toFixed(2)}`}
+                            Shipping: {order.shipping === 0 ? 'Free' : `$${safeToFixed(order.shipping)}`}
                           </div>
                           <div className="text-lg font-semibold text-gray-900">
-                            Total: ${order.total.toFixed(2)}
+                            Total: ${safeToFixed(order.total)}
                           </div>
                         </div>
                       </div>

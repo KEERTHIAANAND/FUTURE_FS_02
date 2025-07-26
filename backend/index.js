@@ -128,6 +128,22 @@ app.get('/api/orders', authenticateToken, async (req, res) => {
   }
 });
 
+// Get a single order by ID (protected)
+app.get('/api/orders/:id', authenticateToken, async (req, res) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid order ID' });
+    }
+    const order = await Order.findOne({ _id: req.params.id, userId: req.user.id });
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.json({ order });
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching order', error: err.message });
+  }
+});
+
 // Get user's cart (protected)
 app.get('/api/cart', authenticateToken, async (req, res) => {
   try {

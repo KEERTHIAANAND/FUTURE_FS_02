@@ -18,7 +18,7 @@ export default function ProductsPage() {
     setCartItemCount(totalItems);
   }, []);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = async (product) => {
     // Get existing cart from localStorage
     const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
     // Check if product already exists in cart with same size and color
@@ -36,6 +36,24 @@ export default function ProductsPage() {
     }
     // Save updated cart to localStorage
     localStorage.setItem('cart', JSON.stringify(existingCart));
+
+    // Sync cart with backend
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        await fetch('http://localhost:5000/api/cart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ items: existingCart })
+        });
+      } catch (err) {
+        // Optionally handle error (e.g., show a message)
+      }
+    }
+
     // Show flash message
     setFlashMsg('Successfully added to cart!');
     setTimeout(() => setFlashMsg(null), 3000);
