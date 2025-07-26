@@ -61,9 +61,14 @@ app.post('/api/signup', async (req, res) => {
 // Create a new order (protected)
 app.post('/api/order', authenticateToken, async (req, res) => {
   try {
-    const { items, total, address } = req.body;
+    const { items, total, address, customerName, customerPhone } = req.body;
+    if (!customerName || !customerPhone) {
+      return res.status(400).json({ message: 'Customer name and phone are required.' });
+    }
     const order = new Order({
       userId: req.user.id,
+      customerName,
+      customerPhone,
       items,
       total,
       address

@@ -49,7 +49,9 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           items: cart,
           total: getTotal(),
-          address: formData.address
+          address: formData.address,
+          customerName: `${formData.firstName} ${formData.lastName}`.trim(),
+          customerPhone: formData.phone
         })
       });
       if (res.ok) {

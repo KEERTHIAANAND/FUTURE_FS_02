@@ -187,6 +187,14 @@ export default function OrderDetailPage() {
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Customer Information</h2>
                 <div className="space-y-3">
                   <div>
+                    <span className="text-sm font-medium text-gray-500">Name:</span>
+                    <p className="text-gray-900">{order.customerName}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-gray-500">Phone:</span>
+                    <p className="text-gray-900">{order.customerPhone}</p>
+                  </div>
+                  <div>
                     <span className="text-sm font-medium text-gray-500">User ID:</span>
                     <p className="text-gray-900">{order.userId}</p>
                   </div>
