@@ -120,7 +120,7 @@ export default function OrdersPage() {
                           Order #{order._id}
                         </h3>
                         <p className="text-sm text-gray-600 mt-1">
-                          Placed on {formatDate(order.date)}
+                          Placed on {formatDate(order.createdAt)}
                         </p>
                       </div>
                       <div className="mt-4 sm:mt-0 flex items-center space-x-4">
@@ -140,8 +140,8 @@ export default function OrdersPage() {
                   {/* Order Items */}
                   <div className="p-6">
                     <div className="space-y-4">
-                      {order.items.map((item) => (
-                        <div key={`${order.id}-${item.id}`} className="flex items-center space-x-4">
+                      {order.items.map((item, idx) => (
+                        <div key={`${order._id}-${item.productId || idx}`} className="flex items-center space-x-4">
                           <div className="relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                             {item.image ? (
                               <Image
@@ -155,15 +155,16 @@ export default function OrdersPage() {
                                 No Image
                               </div>
                             )}
-
                           </div>
                           <div className="flex-1 min-w-0">
                             <h4 className="text-sm font-medium text-gray-900 truncate">
                               {item.name}
                             </h4>
-                            <p className="text-sm text-gray-500">
-                              Size: {item.selectedSize} | Color: {item.selectedColor}
-                            </p>
+                            {item.selectedSize && item.selectedColor && (
+                              <p className="text-sm text-gray-500">
+                                Size: {item.selectedSize} | Color: {item.selectedColor}
+                              </p>
+                            )}
                             <p className="text-sm text-gray-500">
                               Quantity: {item.quantity}
                             </p>
