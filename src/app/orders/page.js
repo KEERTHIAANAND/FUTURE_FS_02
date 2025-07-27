@@ -11,15 +11,15 @@ export default function OrdersPage() {
   const router = useRouter();
 
   useEffect(() => {
+    // Restrict page to signed-in users only
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.replace('/login');
+      return;
+    }
     // Fetch orders from backend
     const fetchOrders = async () => {
       setIsLoading(true);
-      const token = localStorage.getItem('token');
-      if (!token) {
-        setOrders([]);
-        setIsLoading(false);
-        return;
-      }
       try {
         const res = await fetch('http://localhost:5000/api/orders', {
           headers: {

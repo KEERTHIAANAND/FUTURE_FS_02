@@ -11,7 +11,13 @@ export default function CartPage() {
   const [selectedButton, setSelectedButton] = useState('checkout'); // 'checkout' or 'continue'
   const router = useRouter();
 
+  // Restrict page to signed-in users only
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.replace('/login');
+      return;
+    }
     // Load cart from localStorage
     const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
     setCart(savedCart);
