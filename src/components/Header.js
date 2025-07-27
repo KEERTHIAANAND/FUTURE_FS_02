@@ -35,11 +35,14 @@ export default function Header({ cartItemCount = 0 }) {
           <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
-              <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-black via-gray-600 to-gray-400 bg-clip-text text-transparent tracking-wider" style={{ fontFamily: 'var(--font-orbitron)' }}>
-                  NXTLook
-                </span>
-                <span className="text-[10px] sm:text-xs text-gray-500 -mt-1 tracking-widest uppercase">Premium Style</span>
+              <div className="flex items-center space-x-2">
+                <img src="/logo.png" alt="Logo" className="w-12 h-12 sm:w-16 sm:h-16 object-contain" />
+                <div className="flex flex-col ml-3">
+                  <span className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-black via-gray-600 to-gray-400 bg-clip-text text-transparent tracking-wider" style={{ fontFamily: 'var(--font-orbitron)' }}>
+                    NXTLook
+                  </span>
+                  <span className="text-[10px] sm:text-xs text-gray-500 -mt-1 tracking-widest uppercase">Premium Style</span>
+                </div>
               </div>
             </Link>
 
