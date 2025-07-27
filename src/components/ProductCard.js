@@ -9,8 +9,16 @@ export default function ProductCard({ product, onAddToCart }) {
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
+    let imagePath = product.image;
+    if (imagePath) {
+      // Remove any leading './' or 'public/'
+      imagePath = imagePath.replace(/^\.\/?|^public\//, '');
+      // Ensure it starts with '/'
+      if (!imagePath.startsWith('/')) imagePath = '/' + imagePath;
+    }
     onAddToCart({
       ...product,
+      image: imagePath,
       selectedSize,
       selectedColor,
       quantity

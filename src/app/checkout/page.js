@@ -40,6 +40,20 @@ export default function CheckoutPage() {
     // Place order via backend
     const token = localStorage.getItem('token');
     try {
+      // Ensure image paths are correct for Next.js public folder
+      const cartWithImagePaths = cart.map(item => {
+        let imagePath = item.image;
+        if (imagePath) {
+          // Remove any leading './' or 'public/'
+          imagePath = imagePath.replace(/^\.\/?|^public\//, '');
+          // Ensure it starts with '/'
+          if (!imagePath.startsWith('/')) imagePath = '/' + imagePath;
+        }
+        return {
+          ...item,
+          image: imagePath
+        };
+      });
       const res = await fetch('http://localhost:5000/api/order', {
         method: 'POST',
         headers: {
@@ -47,7 +61,7 @@ export default function CheckoutPage() {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          items: cart,
+          items: cartWithImagePaths,
           total: getTotal(),
           address: formData.address,
           customerName: `${formData.firstName} ${formData.lastName}`.trim(),

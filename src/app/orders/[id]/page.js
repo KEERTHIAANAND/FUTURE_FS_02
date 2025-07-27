@@ -162,7 +162,18 @@ export default function OrderDetailPage() {
                 {order.items && order.items.length > 0 ? order.items.map((item, idx) => (
                   <div key={`${order._id}-${item.productId || idx}`} className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
                     <div className="w-20 h-20 bg-gray-100 rounded-lg flex-shrink-0 relative overflow-hidden">
-                      {/* No image field in backend, so skip Image */}
+                      {item.image ? (
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500 text-xs">
+                          No Image
+                        </div>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-lg font-medium text-gray-900 truncate">

@@ -9,7 +9,8 @@ const orderSchema = new mongoose.Schema({
       productId: String,
       name: String,
       quantity: Number,
-      price: Number
+      price: Number,
+      image: String // Store image URL or path for each item
     }
   ],
   total: { type: Number, required: true },
