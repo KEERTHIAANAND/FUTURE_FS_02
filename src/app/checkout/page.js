@@ -54,7 +54,7 @@ export default function CheckoutPage() {
           image: imagePath
         };
       });
-      const res = await fetch('http://localhost:5000/api/order', {
+      const res = await fetch('https://nxtlook.onrender.com/api/order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export default function CheckoutPage() {
       });
       if (res.ok) {
         // Clear cart in backend
-        await fetch('http://localhost:5000/api/cart', {
+        await fetch('https://nxtlook.onrender.com/api/cart', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

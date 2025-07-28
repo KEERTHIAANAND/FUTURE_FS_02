@@ -21,7 +21,7 @@ export default function OrdersPage() {
     const fetchOrders = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch('http://localhost:5000/api/orders', {
+        const res = await fetch('https://nxtlook.onrender.com/api/orders', {
           headers: {
             'Authorization': `Bearer ${token}`
           }

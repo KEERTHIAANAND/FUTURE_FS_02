@@ -41,7 +41,7 @@ export default function ProductsPage() {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        await fetch('http://localhost:5000/api/cart', {
+        await fetch('https://nxtlook.onrender.com/api/cart', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

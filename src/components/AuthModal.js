@@ -66,7 +66,7 @@ export default function AuthModal({ isOpen, onClose }) {
     try {
       if (!isLogin) {
         // SIGNUP: Call your backend API
-        const res = await fetch("http://localhost:5000/api/signup", {
+        const res = await fetch("https://nxtlook.onrender.com/api/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -98,7 +98,7 @@ export default function AuthModal({ isOpen, onClose }) {
         }
       } else {
         // LOGIN: Call backend API for validation
-        const res = await fetch("http://localhost:5000/api/login", {
+        const res = await fetch("https://nxtlook.onrender.com/api/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
