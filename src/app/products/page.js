@@ -1,7 +1,9 @@
+
 'use client';
 
-
 import { Suspense } from 'react';
+import Header from '../../components/Header';
+import ProductGrid from '../../components/ProductGrid';
 
 function ProductsPageContent() {
   const searchParams = useSearchParams();
