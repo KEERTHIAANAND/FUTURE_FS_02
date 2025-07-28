@@ -1,11 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Header from '../../components/Header';
-import ProductGrid from '../../components/ProductGrid';
 
-export default function ProductsPage() {
+import { Suspense } from 'react';
+
+function ProductsPageContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -98,4 +96,12 @@ export default function ProductsPage() {
       )}
     </div>
   );
-} 
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductsPageContent />
+    </Suspense>
+  );
+}
