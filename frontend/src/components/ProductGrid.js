@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import ProductCard from './ProductCard';
+import ProductCard from '@/components/ProductCard';
 import { products, categories } from '../data/products';
 
 export default function ProductGrid({ onAddToCart }) {

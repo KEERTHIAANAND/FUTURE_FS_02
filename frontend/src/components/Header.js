@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import AuthModal from './AuthModal';
+import AuthModal from '@/components/AuthModal';
 
 export default function Header({ cartItemCount = 0 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

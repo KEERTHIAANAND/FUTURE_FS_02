@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import Header from '../components/Header';
-import ProductGrid from '../components/ProductGrid';
+import Header from '@/components/Header';
+import ProductGrid from '@/components/ProductGrid';
 import { products, categories } from '../data/products';
 import Head from 'next/head';
 

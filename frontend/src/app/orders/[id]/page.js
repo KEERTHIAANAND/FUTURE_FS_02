@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Header from '../../../components/Header';
+import Header from '@/components/Header';
 import Image from 'next/image';
 
 export default function OrderDetailPage() {

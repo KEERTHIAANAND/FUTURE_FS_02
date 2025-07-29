@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Header from '../../../components/Header';
-import { products } from '../../../data/products';
+import Header from '@/components/Header';
+import { products } from '@/data/products';
 
 export default function ProductDetailPage() {
   const [product, setProduct] = useState(null);

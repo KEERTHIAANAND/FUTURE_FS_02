@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '../../components/Header';
-import CartItem from '../../components/CartItem';
+import Header from '@/components/Header';
+import CartItem from '@/components/CartItem';
 
 export default function CartPage() {
   const [cart, setCart] = useState([]);

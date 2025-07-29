@@ -5,8 +5,8 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import Header from '../../components/Header';
-import ProductGrid from '../../components/ProductGrid';
+import Header from '@/components/Header';
+import ProductGrid from '@/components/ProductGrid';
 
 function ProductsPageContent() {
   const searchParams = useSearchParams();

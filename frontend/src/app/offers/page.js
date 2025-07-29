@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Header from '../../components/Header';
+import Header from '@/components/Header';
 import React from 'react'; // Added missing import for React
 
 export default function OffersPage() {

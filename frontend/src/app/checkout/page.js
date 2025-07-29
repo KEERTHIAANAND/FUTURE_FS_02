@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '../../components/Header';
-import CheckoutForm from '../../components/CheckoutForm';
+import Header from '@/components/Header';
+import CheckoutForm from '@/components/CheckoutForm';
 import Image from 'next/image';
 
 export default function CheckoutPage() {
